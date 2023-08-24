@@ -1,0 +1,246 @@
+CREATE TABLE user_info  (
+	 user_id 	varchar2(50) primary key		NOT NULL,
+	 pw 	varchar2(59)		NOT NULL,
+	 nickname 	varchar2(50)		NULL,
+	 name 	varchar2(59)		NOT NULL,
+	 email 	varchar2(59) UNIQUE		NULL,
+	 address 	varchar2(200)		NOT NULL,
+	 phone 	varchar2(59) UNIQUE		NULL,
+	 join_date 	date default sysdate		NOT NULL,
+	 point 	number(8)		NULL
+);
+
+CREATE TABLE  product  (
+	 product_num 	number(8) primary key		NOT NULL,
+	 product_name 	varchar2(50)		NOT NULL,
+	 product_brand 	varchar2(50)		NULL,
+	 gender 	varchar2(50)		NULL,
+	 price 	varchar2(50)		NOT NULL,
+	 description 	varchar2(2000)		NOT NULL,
+	 imagePath 	varchar2(1000)		NOT NULL,
+	 registration 	date default sysdate		NOT NULL,
+	 in_count 	number(8)		NOT NULL,
+	 point 	number(8)		NULL
+);
+
+CREATE TABLE  admin_info  (
+	 admin_id 	varchar2(50) primary key		NOT NULL,
+	 pw 	varchar2(50)		NOT NULL
+);
+
+CREATE TABLE  cart  (
+	 user_id 	varchar2(50)		NOT NULL,
+	 product_num 	number(8)		NOT NULL,
+	 product_name 	varchar2(50)		NOT NULL,
+	 amount 	number(5)		NOT NULL,
+	 price 	varchar2(50)		NOT NULL,
+	 p_size 	varchar2(50)		NULL,
+	 write_date 	date default sysdate		NULL,
+	 imagePath 	varchar2(1000)		NULL
+);
+
+
+CREATE TABLE  order_table  (
+	 order_num 	number(8) primary key		NOT NULL,
+	 user_id 	varchar2(50)		NOT NULL,
+	 product_num 	number(8)		NOT NULL,
+	 product_name 	varchar2(50)		NULL,
+	 product_opt 	varchar2(50)		NOT NULL,
+	 result 	varchar2(50)		NOT NULL,
+	 indate 	date default sysdate		NULL
+);
+
+CREATE TABLE  order_info  (
+	 product_num 	number(8)		NOT NULL,
+	 order_num 	number(8)		NOT NULL,
+	 amount 	number(5)		NOT NULL,
+	 result 	varchar2(50)		NOT NULL,
+	 name 	varchar2(50)		NULL,
+	 address 	varchar2(100)		NULL
+);
+
+CREATE TABLE  board  (
+	 qna_num 	number(8) primary key		NOT NULL,
+	 user_id 	varchar2(50)		NOT NULL,
+	 qna_title 	varchar2(50)		NOT NULL,
+	 qna_content 	varchar2(2000)		NOT NULL,
+	 qna_reply 	varchar2(2000)		NULL,
+	 rep_check 	varchar2(50)		NOT NULL,
+	 write_date 	date default sysdate		NULL
+);
+
+CREATE TABLE  point  (
+	 user_id 	varchar2(50)		NOT NULL,
+	 product_name 	varchar2(50)		NOT NULL,
+	 point 	number(8)		NOT NULL,
+	 p_date 	date default sysdate		NULL
+);
+
+CREATE TABLE  coupon  (
+	 user_id 	varchar2(50)		NOT NULL,
+	 cp_name 	varchar2(50)		NOT NULL,
+	 cp_result 	number(8)		NULL,
+	 cp_sale 	varchar2(50)		NULL,
+	 cp_expiration 	date default sysdate		NOT NULL
+);
+
+CREATE TABLE  admin_board  (
+	 article_No 	number(8) primary key		NOT NULL,
+	 admin_id 	varchar2(50)		NOT NULL,
+	 title 	varchar2(50)		NOT NULL,
+	 content 	varchar2(2000)		NOT NULL,
+	 write_date 	date default sysdate		NULL
+);
+
+CREATE TABLE  review  (
+	 articleNo 	number(8) primary key		NOT NULL,
+	 user_id 	varchar2(50)		NOT NULL,
+	 product_num 	number(8)		NOT NULL,
+	 content 	varchar2(2000)		NULL,
+	 imagePath 	varchar2(500)		NULL,
+	 write_date 	date default sysdate		NULL
+);
+
+CREATE TABLE  p_board  (
+	 articleNo 	number(8) primary key		NOT NULL,
+	 user_id 	varchar2(50)		NOT NULL,
+	 product_num 	number(8)		NOT NULL,
+	 qna_title 	varchar2(100)		NOT NULL,
+	 qna_content 	varchar2(2000)		NULL,
+	 qna_reply 	varchar2(2000)		NULL,
+	 rep_check 	varchar2(50)		NULL,
+	 write_date 	date default sysdate		NULL,
+	 imagePath 	varchar2(500)		NULL
+);
+
+CREATE TABLE  sell_table  (
+	 sell_num 	number(8) primary key		NOT NULL,
+	 user_id 	varchar2(50)		NOT NULL,
+	 product_num 	number(8)		NOT NULL,
+	 order_num 	number(8)		NOT NULL,
+	 product_name 	varchar2(50)		NULL,
+	 result 	varchar2(50)		NOT NULL,
+	 indate 	date default sysdate		NULL
+);
+
+ALTER TABLE  cart  ADD CONSTRAINT  FK_user_info_TO_cart_1  FOREIGN KEY (
+	 user_id 
+)
+REFERENCES  user_info  (
+	 user_id 
+);
+
+ALTER TABLE  cart  ADD CONSTRAINT  FK_product_TO_cart_1  FOREIGN KEY (
+	 product_num 
+)
+REFERENCES  product  (
+	 product_num 
+);
+
+ALTER TABLE  order_table  ADD CONSTRAINT  FK_user_info_TO_order_table_1  FOREIGN KEY (
+	 user_id 
+)
+REFERENCES  user_info  (
+	 user_id 
+);
+
+ALTER TABLE  order_table  ADD CONSTRAINT  FK_product_TO_order_table_1  FOREIGN KEY (
+	 product_num 
+)
+REFERENCES  product  (
+	 product_num 
+);
+
+ALTER TABLE  order_info  ADD CONSTRAINT  FK_product_TO_order_info_1  FOREIGN KEY (
+	 product_num 
+)
+REFERENCES  product  (
+	 product_num 
+);
+
+ALTER TABLE  order_info  ADD CONSTRAINT  FK_order_table_TO_order_info_1  FOREIGN KEY (
+	 order_num 
+)
+REFERENCES  order_table  (
+	 order_num 
+);
+
+ALTER TABLE  board  ADD CONSTRAINT  FK_user_info_TO_board_1  FOREIGN KEY (
+	 user_id 
+)
+REFERENCES  user_info  (
+	 user_id 
+);
+
+ALTER TABLE  point  ADD CONSTRAINT  FK_user_info_TO_point_1  FOREIGN KEY (
+	 user_id 
+)
+REFERENCES  user_info  (
+	 user_id 
+);
+
+ALTER TABLE  coupon  ADD CONSTRAINT  FK_user_info_TO_coupon_1  FOREIGN KEY (
+	 user_id 
+)
+REFERENCES  user_info  (
+	 user_id 
+);
+
+ALTER TABLE  admin_board  ADD CONSTRAINT  FK_admin_info_TO_admin_board_1  FOREIGN KEY (
+	 admin_id 
+)
+REFERENCES  admin_info  (
+	 admin_id 
+);
+
+ALTER TABLE  review  ADD CONSTRAINT  FK_user_info_TO_review_1  FOREIGN KEY (
+	 user_id 
+)
+REFERENCES  user_info  (
+	 user_id 
+);
+
+ALTER TABLE  review  ADD CONSTRAINT  FK_product_TO_review_1  FOREIGN KEY (
+	 product_num 
+)
+REFERENCES  product  (
+	 product_num 
+);
+
+ALTER TABLE  p_board  ADD CONSTRAINT  FK_user_info_TO_p_board_1  FOREIGN KEY (
+	 user_id 
+)
+REFERENCES  user_info  (
+	 user_id 
+);
+
+ALTER TABLE  p_board  ADD CONSTRAINT  FK_product_TO_p_board_1  FOREIGN KEY (
+	 product_num 
+)
+REFERENCES  product  (
+	 product_num 
+);
+
+ALTER TABLE  sell_table  ADD CONSTRAINT  FK_user_info_TO_sell_table_1  FOREIGN KEY (
+	 user_id 
+)
+REFERENCES  user_info  (
+	 user_id 
+);
+
+ALTER TABLE  sell_table  ADD CONSTRAINT  FK_product_TO_sell_table_1  FOREIGN KEY (
+	 product_num 
+)
+REFERENCES  product  (
+	 product_num 
+);
+
+ALTER TABLE  sell_table  ADD CONSTRAINT  FK_order_table_TO_sell_table_1  FOREIGN KEY (
+	 order_num 
+)
+REFERENCES  order_table  (
+	 order_num 
+);
+
+insert into admin_info values('admin','1234');
+commit;
