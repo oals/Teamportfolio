@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<typeAliases>
+	<typeAlias type="com.shop.domain.Shop_User_InfoVO" alias ="Shop_User_InfoVO"/>
+	<typeAlias type="com.shop.domain.Shop_Write_BoardVO" alias ="Shop_Write_BoardVO"/>
+	<typeAlias type="com.shop.domain.Shop_Write_OrderVO" alias ="Shop_Write_OrderVO"/>
+	<typeAlias type="com.shop.domain.Shop_Write_Order_InfoVO" alias ="Shop_Write_Order_InfoVO"/>
+	<typeAlias type="com.shop.domain.Shop_Write_CouponVO" alias ="Shop_Write_CouponVO"/>
+	<typeAlias type="com.shop.domain.Shop_Write_sell_tableVO" alias ="Shop_Write_sell_tableVO"/>
+	<typeAlias type="com.shop.domain.Shop_Write_PointVO" alias ="Shop_Write_PointVO"/>
+	<typeAlias type="com.shop.domain.Shop_Write_CartVO" alias ="Shop_Write_CartVO"/>
+	<typeAlias type="com.shop.domain.Shop_Write_AdminBoardVO" alias ="Shop_Write_AdminBoardVO"/>
+	<typeAlias type="com.shop.domain.Shop_Write_ProductVO" alias ="Shop_Write_ProductVO"/>
+	<typeAlias type="com.shop.domain.Shop_Write_ReviewVO" alias ="Shop_Write_ReviewVO"/>
+	<typeAlias type="com.shop.domain.Shop_Write_P_BoardVO" alias ="Shop_Write_P_BoardVO"/>
+</typeAliases> 
+
+
+
+
+  <environments default="db1">
+    <environment id="db1">
+      <transactionManager type="JDBC"/>
+      
+      
+<!--       <dataSource type="JNDI">
+      	<property name="data_source" value="java:comp/env/oraDB"/>
+      </dataSource> -->
+      
+      <!--  <property name="url" value="jdbc:oracle:thin:@192.168.0.27:1521:xe"/> -->
+      
+       <dataSource type="POOLED">
+        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+        <property name="username" value="user1"/>
+        <property name="password" value="1234"/>
+      </dataSource> 
+      
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="mapper/shop/shopInsert.xml"/>
+    <mapper resource="mapper/shop/shopCount.xml"/>
+    <mapper resource="mapper/shop/shopUpdate.xml"/>
+    <mapper resource="mapper/shop/shopSelect.xml"/>
+    <mapper resource="mapper/shop/shopDelete.xml"/>
+  </mappers>
+</configuration>

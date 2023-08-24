@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="shop_Insert">
+
+<insert id="register" parameterType="Shop_User_InfoVO">   <!-- 회원가입  -->
+	insert into user_info (user_id,pw,nickname,name,email,address,phone,point,join_date) 
+	values (#{user_id},#{pw},#{nickname},#{name},#{email},#{address},#{phone},#{point},sysdate)
+	
+</insert>
+
+
+<insert id="write_board" parameterType="Shop_Write_BoardVO"> <!-- 문의 사항 -->
+	insert into board (qna_num,user_id,qna_title,qna_content,qna_reply,rep_check,write_date)
+	values(#{qna_num},#{user_id},#{qna_title},#{qna_content},#{qna_reply},#{rep_check},sysdate)
+</insert>
+
+
+<insert id="write_order" parameterType="Shop_Write_OrderVO"> <!-- 주문 -->
+	insert into order_table (order_num,user_id,product_num,product_name,product_opt,result,indate)
+	values(#{order_num},#{user_id},#{product_num},#{product_name},#{product_opt},#{result},sysdate)
+</insert>
+
+
+<insert id="write_order_info" parameterType="Shop_Write_Order_InfoVO"> <!-- 주문 상세 정보 -->
+	insert into order_info (product_num,order_num,amount,result,name,address)
+	values(#{product_num},#{order_num},#{amount},#{result},#{name},#{address})
+
+</insert>
+
+<insert id="write_sell_table" parameterType="Shop_Write_sell_tableVO">  <!-- 판매 테이블 -->
+	insert into sell_table (sell_num,user_id,product_num,order_num,product_name,result,indate)
+	values(#{sell_num},#{user_id},#{product_num},#{order_num},#{product_name},#{result},sysdate)
+
+</insert>
+
+
+<insert id="write_coupon" parameterType="Shop_Write_CouponVO"> <!-- 쿠폰 -->
+	insert into coupon (user_id,cp_name, cp_result, cp_sale, cp_expiration)
+	values(#{user_id},#{cp_name},#{cp_result},#{cp_sale},sysdate+30)
+</insert>
+
+<insert id="write_point" parameterType="Shop_Write_PointVO"> <!-- 포인트 적립 -->
+	insert into point (user_id,product_name,point,p_date)
+	values(#{user_id},#{product_name},#{point},sysdate)
+</insert>
+
+
+<insert id="write_cart" parameterType="Shop_Write_CartVO">    <!-- 장바구니 -->
+	insert into cart (user_id,product_num,product_name,amount,price,p_size,imagePath)
+	values(#{user_id},#{product_num},#{product_name},#{amount},#{price},#{p_size},#{imagePath})
+</insert>
+
+
+<insert id="write_admin_board" parameterType="Shop_Write_AdminBoardVO">  <!-- 공지사항 및 이벤트 쓰기 -->
+	insert into admin_board (article_No,admin_id,title,content,write_date)
+	values(#{article_No},#{admin_id},#{title},#{content},sysdate)
+	
+	
+</insert>
+
+<insert id="write_product" parameterType="Shop_Write_ProductVO"> <!-- 상품 등록 -->
+	insert into product (product_num,product_name,product_brand,gender,price,description,imagePath,registration,in_count,point)
+	values (#{product_num},#{product_name},#{product_brand},#{gender},#{price},#{description},#{imagePath},sysdate,#{in_count},#{point})
+</insert>
+
+<insert id="write_reiview" parameterType="Shop_Write_ReviewVO">   <!-- 리뷰 입력 -->
+	insert into review (articleNo,user_id,product_num,content,imagePath,write_date)
+	values (#{articleNo},#{user_id},#{product_num},#{content},#{imagePath},sysdate)
+</insert>
+
+<insert id="write_p_board" parameterType="Shop_Write_P_BoardVO"> <!-- 상품 문의 입력 -->
+	insert into p_board (articleNo,user_id,product_num,qna_title,qna_content,qna_reply,rep_check,write_date,imagePath)
+	values (#{articleNo},#{user_id},#{product_num},#{qna_title},#{qna_content},#{qna_reply},#{rep_check},sysdate,#{imagePath})
+</insert>
+
+
+
+
+</mapper>    

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="shop_Delete">
+
+<delete id="delete_cart_p" parameterType="Shop_Write_CartVO">  <!-- 장바구니 물품 개별 삭제 -->
+	delete from cart where user_id = #{user_id} and product_num = #{product_num}
+</delete>
+
+<delete id="delete_cart_p_All" parameterType="Shop_Write_CartVO">  <!-- 장바구니 물품 전체 삭제 -->
+	delete from cart where user_id = #{user_id}
+</delete>
+
+
+<delete id="delete_admin_board" parameterType="Integer">	 <!-- 공지사항 및 이벤트 글 삭제 -->
+	delete from admin_board where article_No = #{article_No}
+</delete>
+
+<delete id="delete_product" parameterType="Shop_Write_ProductVO"> <!-- 상품 정보 삭제 -->
+	delete from product where product_num = #{product_num}
+</delete>
+
+<delete id="delete_board" parameterType="Shop_Write_BoardVO"> <!-- 문의 글 삭제 -->
+	delete from board where qna_num = #{qna_num}
+</delete>
+
+<delete id="delete_user_info" parameterType="map"> <!-- 회원 탈퇴 -->
+	delete from user_info where user_id  = #{user_id}
+</delete>
+
+
+</mapper>    

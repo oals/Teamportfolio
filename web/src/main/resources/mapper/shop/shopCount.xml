@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shop_Count">
+
+
+<select id="order_count" resultType="Integer" parameterType="map"> <!-- 주문 칼럼 수 반환 -->
+	select 
+	
+	<choose>
+		<when test="user_id != null">
+		 count(order_num) from order_table where user_id = #{user_id}
+		</when>
+		<otherwise>
+		 max(order_num) + 1 from order_table
+		</otherwise>
+	</choose>
+	
+
+</select>
+
+
+
+<select id="review_count" resultType="Integer" parameterType="map">		 <!-- 상품리뷰 글 칼럼 수 반환 -->
+	select 
+	<choose>
+		<when test="product_num != null">
+		count(articleno) from review where product_num = #{product_num}
+		</when>
+		<otherwise>
+		max(articleno) + 1 from review
+		</otherwise>
+	</choose>
+</select>
+
+<select id="p_board_count" resultType="Integer" parameterType="map"> 		<!-- 상품문의 글 칼럼 수 반환 -->
+	select 
+	<choose>
+		<when test="user_id != null">
+		count(articleno) from p_board where user_id = #{user_id}
+		</when>
+
+		<otherwise>
+		max(articleno) + 1 from p_board
+		</otherwise>
+	</choose>
+	
+</select>
+
+
+
+<select id="p_board_count2" resultType="Integer" parameterType="map"> 		<!-- 상품문의 글 칼럼 수 반환 -->
+	select 
+		 count(*) from p_board where product_num = #{product_num}
+</select>
+
+
+
+
+
+
+
+<select id="board_count" resultType="Integer"> <!-- 문의사항 글 칼럼 수 반환 -->
+	select max(qna_num) + 1 from board
+</select>
+
+
+<select id="product_count"  resultType="Integer"> <!-- 상품 정보 칼럼 수 반환 -->
+	select max(product_num) + 1 from product
+	
+	
+</select>
+
+
+<select id="brand_product_count"  resultType="Integer" parameterType="map"> <!-- 상품 정보 칼럼 수 반환 -->
+	select count(*) from product where product_brand = #{brand} 
+	
+	
+	
+	
+</select>
+
+
+
+<select id="sell_count" resultType="Integer">	<!-- 판매 처리 칼럼 수 반환 -->
+	select max(sell_num) + 1 from sell_table
+</select>
+
+<select id="admin_board_count" resultType="Integer"> <!-- 공지사항 및 이벤트 -->
+	select max(article_No) + 1 from admin_board
+</select>
+
+
+
+
+
+
+
+
+</mapper>
